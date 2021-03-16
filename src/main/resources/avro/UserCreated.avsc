@@ -1,0 +1,19 @@
+{
+    "namespace": "com.sample.test",
+    "type": "record",
+    "name": "UserCreatedEvent",
+    "fields": [
+        {
+            "name": "eventMetadata",
+            "type": "com.common.event.EventMetadata"
+        },
+        {
+            "name": "userId",
+            "type": "string"
+        },
+        {
+            "name": "email",
+            "type": "string"
+        }
+    ]
+}

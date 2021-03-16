@@ -1,0 +1,11 @@
+{
+    "namespace": "com.common.event",
+    "type": "record",
+    "name": "EventMetadata",
+    "fields": [
+        {
+            "name": "type",
+            "type": "string"
+        }
+    ]
+}

@@ -1,0 +1,23 @@
+{
+    "namespace": "com.sample.test",
+    "type": "record",
+    "name": "UserDeletedEvent",
+    "fields": [
+        {
+            "name": "eventMetadata",
+            "type": "com.common.event.EventMetadata"
+        },
+        {
+            "name": "userId",
+            "type": "string"
+        },
+        {
+            "name": "deletedBy",
+            "type": "string"
+        },
+        {
+            "name": "deletionType",
+            "type": "string"
+        }
+    ]
+}
