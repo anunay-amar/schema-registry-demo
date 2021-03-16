@@ -37,10 +37,10 @@ public class ConsumerDemoTopicNameStrategyME {
 
 		properties.setProperty("auto.register.schemas", "false");
 		properties.setProperty("use.latest.version", "true");
-		//properties.setProperty("specific.avro.reader", "true");
+		properties.setProperty("specific.avro.reader", "true");
 		properties.setProperty("value.subject.name.strategy", "io.confluent.kafka.serializers.subject.RecordNameStrategy");
 
-		KafkaConsumer<String, GenericData> kafkaConsumer = new KafkaConsumer<>(properties);
+		KafkaConsumer<String, SpecificRecord> kafkaConsumer = new KafkaConsumer<>(properties);
 		String topic = "mult-event-topic-tns";
 		kafkaConsumer.subscribe(Collections.singleton(topic));
 
@@ -48,10 +48,18 @@ public class ConsumerDemoTopicNameStrategyME {
 
 		while (true) {
 			System.out.println("Polling");
-			ConsumerRecords<String, GenericData> records = kafkaConsumer.poll(Duration.ofSeconds(1));
+			ConsumerRecords<String, SpecificRecord> records = kafkaConsumer.poll(Duration.ofSeconds(1));
 
-			for (ConsumerRecord<String, GenericData> record : records){
-				System.out.println(record.value());
+			for (ConsumerRecord<String, SpecificRecord> record : records){
+				final SpecificRecord value = record.value();
+				if (value instanceof UserCreatedEvent) {
+					System.out.println("UserCreatedEvent:" + value);
+				} else if (value instanceof UserDeletedEvent) {
+					System.out.println("UserDeletedEvent:" + value);
+				} else {
+					System.out.println("Unknow type" + value);
+				}
+
 			}
 
 			kafkaConsumer.commitSync();
